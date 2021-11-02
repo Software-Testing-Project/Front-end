@@ -9,6 +9,7 @@ import {
   TextInput,
   Button,
 } from "react-native";
+import Camera_Module from "./Components/Camera";
 
 export default function App() {
   const [todos, set_todos] = useState([
@@ -42,6 +43,9 @@ export default function App() {
   };
   return (
     <View style={styles.container}>
+      <View>
+        <Camera_Module></Camera_Module>
+      </View>
       <View>
         <Text style={styles.header}>TODO App</Text>
       </View>
