@@ -30,6 +30,7 @@ export default function App() {
 
     { name: "test", key: "4" },
   ]);
+
   const [temp, set_temp] = useState("");
   const [opencam, setcam] = useState(false);
   const Press_Handler = (key) => {
