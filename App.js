@@ -24,8 +24,11 @@ export default function App() {
     {
       name: "Burger",
       key: "3",
+
     },
-  ]);
+  
+{name:"test",key:"3"}
+]);
   const [temp, set_temp] = useState("");
   const Press_Handler = (key) => {
     set_todos((prev_todos) => {
