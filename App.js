@@ -29,7 +29,7 @@ export default function App() {
 
     },
   
-{name:"test",key:"3"}
+{name:"Change-test",key:"3"}
 ]);
   const [temp, set_temp] = useState("");
   const [opencam, setcam] = useState(false);
