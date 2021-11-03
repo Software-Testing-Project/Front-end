@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
 import { Camera } from "expo-camera";
 
-export default function Camera_Module() {
+export default function Camera_Module({ turnback }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const ref = useRef(null);
@@ -24,10 +24,16 @@ export default function Camera_Module() {
         }}
       />
       <View>
-        <TouchableOpacity onPress={takePhoto}>
-          <Text>Click Me</Text>
+        <TouchableOpacity onPress={takePhoto} style={styles.savebtn}>
+          <Text style={styles.text}>Save Pic</Text>
         </TouchableOpacity>
       </View>
+      <Button
+        title="Back"
+        onPress={() => {
+          turnback(false);
+        }}
+      />
     </View>
   );
 }
@@ -35,6 +41,8 @@ export default function Camera_Module() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
+    alignItems: "center",
   },
   camera: {
     width: 200,
@@ -51,7 +59,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontSize: 18,
+    fontSize: 15,
+    color: "white",
+  },
+  savebtn: {
+    backgroundColor: "red",
+    padding: 5,
+    margin: 5,
     color: "white",
   },
 });
