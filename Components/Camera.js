@@ -1,14 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Button,
+  Image,
+} from "react-native";
 import { Camera } from "expo-camera";
 
 export default function Camera_Module({ turnback }) {
   const [hasPermission, setHasPermission] = useState(null);
+  const [saved, setsaved] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const ref = useRef(null);
   const takePhoto = async () => {
     const photo = await ref.current.takePictureAsync();
-    console.log(photo);
+    setsaved(photo.uri);
   };
   return (
     <View style={styles.container}>
@@ -27,6 +35,11 @@ export default function Camera_Module({ turnback }) {
         <TouchableOpacity onPress={takePhoto} style={styles.savebtn}>
           <Text style={styles.text}>Save Pic</Text>
         </TouchableOpacity>
+        {!saved ? (
+          <Text>NO picture saved</Text>
+        ) : (
+          <Image source={{ uri: saved }} />
+        )}
       </View>
       <Button
         title="Back"
