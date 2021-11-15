@@ -12,6 +12,8 @@ import {
   Modal,
 } from "react-native";
 import Camera_Module from "./Components/Camera";
+import Image_Inside from "./Components/camera2";
+import LiveStreaming from "./Components/LiveStreaming";
 
 export default function App() {
   const [todos, set_todos] = useState([
@@ -33,6 +35,8 @@ export default function App() {
 
   const [temp, set_temp] = useState("");
   const [opencam, setcam] = useState(false);
+  const [opencamera2, setcamera2] = useState(false);
+  const [openlivestream, setlivestream] = useState(false);
   const Press_Handler = (key) => {
     set_todos((prev_todos) => {
       return prev_todos.filter((todo) => todo.key != key);
@@ -59,7 +63,27 @@ export default function App() {
           <Camera_Module turnback={setcam}></Camera_Module>
         </Modal>
       </View>
+      <View>
+        <Modal
+          visible={openlivestream}
+          animationType="slide"
+          presentationStyle="fullScreen"
+          style={styles.Modal}
+        >
+          <LiveStreaming turnback={setlivestream}></LiveStreaming>
+        </Modal>
+      </View>
 
+      <View>
+        <Modal
+          visible={opencamera2}
+          animationType="slide"
+          presentationStyle="fullScreen"
+          style={styles.Modal}
+        >
+          <Image_Inside turnback={setcamera2}></Image_Inside>
+        </Modal>
+      </View>
       <View style={styles.cam_btn}>
         <Button
           title="Open Camera"
@@ -68,6 +92,24 @@ export default function App() {
           }}
         />
       </View>
+
+      <View style={styles.cam_btn}>
+        <Button
+          title="Open Live Streaming"
+          onPress={() => {
+            setlivestream(true);
+          }}
+        />
+      </View>
+      <View style={styles.cam_btn}>
+        <Button
+          title="Open camera 2"
+          onPress={() => {
+            setcamera2(true);
+          }}
+        />
+      </View>
+
       <View style={styles.todo_APP}>
         <View>
           <Text style={styles.header}>TODO App</Text>

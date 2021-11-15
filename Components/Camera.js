@@ -7,6 +7,7 @@ import {
   Button,
   Image,
 } from "react-native";
+import * as FaceDetector from "expo-face-detector";
 import { Camera } from "expo-camera";
 
 export default function Camera_Module({ turnback }) {
@@ -15,12 +16,33 @@ export default function Camera_Module({ turnback }) {
   const [type, setType] = useState(Camera.Constants.Type.front);
   const ref = useRef(null);
   const takePhoto = async () => {
+    console.log("Yes Yes");
     const photo = await ref.current.takePictureAsync();
     setsaved(photo.uri);
   };
+  const hanldeface = ({ faces }) => {
+    //console.log(faces);
+    if (faces.length > 0) {
+      console.log("Yes");
+      takePhoto();
+    }
+  };
   return (
     <View style={styles.container}>
-      <Camera type={type} style={styles.camera} ratio="16:9" ref={ref}></Camera>
+      <Camera
+        type={type}
+        style={styles.camera}
+        ratio="16:9"
+        ref={ref}
+        onFacesDetected={hanldeface}
+        faceDetectorSettings={{
+          mode: FaceDetector.FaceDetectorMode.accurate,
+          detectLandmarks: FaceDetector.FaceDetectorLandmarks.none,
+          runClassifications: FaceDetector.FaceDetectorClassifications.none,
+          minDetectionInterval: 1000,
+          tracking: true,
+        }}
+      ></Camera>
       <Button
         title="Flip"
         onPress={() => {
@@ -38,12 +60,13 @@ export default function Camera_Module({ turnback }) {
         {!saved ? (
           <Text>NO picture saved</Text>
         ) : (
-          <Image source={{ uri: saved }} />
+          <Image source={{ uri: saved }} style={styles.camera} />
         )}
       </View>
       <Button
         title="Back"
         onPress={() => {
+          setsaved(null);
           turnback(false);
         }}
       />
