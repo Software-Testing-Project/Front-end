@@ -20,6 +20,13 @@ export default function Camera_Module({ turnback }) {
     const photo = await ref.current.takePictureAsync();
     setsaved(photo.uri);
   };
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+
   const hanldeface = ({ faces }) => {
     //console.log(faces);
     if (faces.length > 0) {

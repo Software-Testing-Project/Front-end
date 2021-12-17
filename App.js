@@ -17,31 +17,32 @@ import {
   Button,
   Modal,
 } from "react-native";
-import Camera_Module from "./Components/Camera";
-import Image_Inside from "./Components/camera2";
+
 import LiveStreaming from "./Components/LiveStreaming";
+import Selector from "./Components/Selector";
 
 export default function App() {
-  const [todos, set_todos] = useState([
-    {
-      name: "Pizza",
-      key: "1",
-    },
-    {
-      name: "Biryani",
-      key: "2",
-    },
-    {
-      name: "Burger",
-      key: "3",
-    },
+  // const [todos, set_todos] = useState([
+  //   {
+  //     name: "Pizza",
+  //     key: "1",
+  //   },
+  //   {
+  //     name: "Biryani",
+  //     key: "2",
+  //   },
+  //   {
+  //     name: "Burger",
+  //     key: "3",
+  //   },
 
-    { name: "test", key: "4" },
-  ]);
+  //   { name: "test", key: "4" },
+  // ]);
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
   const [temp, set_temp] = useState("");
-  const [opencam, setcam] = useState(false);
+
+  const [openSelector, setSelector] = useState(false);
   const [opencamera2, setcamera2] = useState(false);
   const [openlivestream, setlivestream] = useState(false);
   const Press_Handler = (key) => {
@@ -71,6 +72,9 @@ export default function App() {
             animationType="slide"
             presentationStyle="fullScreen"
             style={styles.Modal}
+            onRequestClose={() => {
+              setlivestream(!openlivestream);
+            }}
           >
             <LiveStreaming turnback={setlivestream}></LiveStreaming>
           </Modal>
@@ -78,13 +82,24 @@ export default function App() {
         {/* Modal for camera opening and autoclick */}
         <View>
           <Modal
+            visible={openSelector}
+            animationType="slide"
+            presentationStyle="fullScreen"
+            style={styles.Modal}
+            onRequestClose={() => {
+              setSelector(!openSelector);
+            }}
+          >
+            <Selector turnback={setSelector}></Selector>
+          </Modal>
+          {/* <Modal
             visible={opencam}
             animationType="slide"
             presentationStyle="fullScreen"
             style={styles.Modal}
           >
             <Camera_Module turnback={setcam}></Camera_Module>
-          </Modal>
+          </Modal> */}
         </View>
         <Text
           style={{
@@ -134,7 +149,7 @@ export default function App() {
           <View style={{ margin: 30 }}>
             <TouchableOpacity
               onPress={() => {
-                setcam(true);
+                setSelector(true);
               }}
             >
               <Image source={p4} style={{ width: 90, height: 90 }} />
