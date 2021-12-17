@@ -14,7 +14,7 @@ export default function LiveStreaming({ turnback }) {
     <View style={{ flex: 1, flexDirection: "column" }}>
       <WebView
         originWhitelist={["*"]}
-        source={{ uri: "http://192.168.10.11:5000/", baseUrl: "" }}
+        source={{ uri: "http://192.168.137.40:5000/", baseUrl: "" }}
         style={{ flex: 0.5, height: 2 }}
       />
       <Button

@@ -32,7 +32,7 @@ export default function Image_Inside() {
     console.log(result.uri);
 
     if (!result.cancelled) {
-      fetch("http://192.168.10.11:5000/Postimages", {
+      fetch("http://192.168.137.40:5000/Postimages", {
         method: "POST",
         headers: {
           Accept: "application/json",
