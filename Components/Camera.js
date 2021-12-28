@@ -10,16 +10,32 @@ import {
 import * as FaceDetector from "expo-face-detector";
 import { Camera } from "expo-camera";
 
-export default function Camera_Module({ turnback }) {
+export default function Camera_Module({ turnback, url }) {
+  url = url.concat("Postimages");
   const [hasPermission, setHasPermission] = useState(null);
   const [saved, setsaved] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const ref = useRef(null);
   const takePhoto = async () => {
-    console.log("Yes Yes");
-    const photo = await ref.current.takePictureAsync();
+    //console.log("Yes Yes");
+    const photo = await ref.current.takePictureAsync({ base64: true });
     setsaved(photo.uri);
+
+    let result = photo;
+    if (result) {
+      fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          img: result.base64,
+        }),
+      }).then(console.log("YEsss posted"));
+    }
   };
+
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -46,7 +62,7 @@ export default function Camera_Module({ turnback }) {
           mode: FaceDetector.FaceDetectorMode.accurate,
           detectLandmarks: FaceDetector.FaceDetectorLandmarks.none,
           runClassifications: FaceDetector.FaceDetectorClassifications.none,
-          minDetectionInterval: 1000,
+          minDetectionInterval: 3000,
           tracking: true,
         }}
       ></Camera>

@@ -8,7 +8,9 @@ import {
   Image,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-export default function Image_Inside() {
+export default function Image_Inside({ url }) {
+  url = url.concat("Postimages");
+  console.log(url);
   const [image, setImage] = useState(null);
   useEffect(() => {
     (async () => {
@@ -32,7 +34,7 @@ export default function Image_Inside() {
     console.log(result.uri);
 
     if (!result.cancelled) {
-      fetch("http://192.168.137.40:5000/Postimages", {
+      fetch(url, {
         method: "POST",
         headers: {
           Accept: "application/json",

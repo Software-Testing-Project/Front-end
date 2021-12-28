@@ -5,6 +5,9 @@ import p1 from "./assets/1.png";
 import p2 from "./assets/2.png";
 import p3 from "./assets/3.png";
 import p4 from "./assets/4.png";
+import p7 from "./assets/7.png";
+import p8 from "./assets/8.png";
+
 import {
   StyleSheet,
   Text,
@@ -13,6 +16,7 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   TextInput,
   Button,
   Modal,
@@ -41,8 +45,10 @@ export default function App() {
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
   const [temp, set_temp] = useState("");
-
+  const [openmenu, setmenu] = useState(false);
   const [openSelector, setSelector] = useState(false);
+  const [tempURL, settempURL] = useState("39.45.32.51");
+  const [URL, setURL] = useState("http://" + tempURL + ":5000/");
   const [opencamera2, setcamera2] = useState(false);
   const [openlivestream, setlivestream] = useState(false);
   const Press_Handler = (key) => {
@@ -54,15 +60,32 @@ export default function App() {
     var _key = todos.length + 1;
     var obj = { name: temp, key: _key };
     console.log("todo", todos);
+
     var new_state = [...todos, obj];
 
     set_todos(new_state);
     console.log("todo", todos);
   };
+
   return (
     <View style={styles.container}>
-      <View>
-        <Image source={logo} style={{ width: windowWidth, height: 300 }} />
+      <View style={{}}>
+        <View>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => {
+              setmenu(!openmenu);
+            }}
+          >
+            <Image
+              source={p8}
+              style={{ width: 30, height: 30, marginLeft: 10, marginTop: 3 }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Image source={logo} style={{ width: windowWidth, height: 250 }} />
+        </View>
       </View>
       <View>
         {/* Modal for live streaming */}
@@ -76,9 +99,54 @@ export default function App() {
               setlivestream(!openlivestream);
             }}
           >
-            <LiveStreaming turnback={setlivestream}></LiveStreaming>
+            <LiveStreaming turnback={setlivestream} url={URL}></LiveStreaming>
           </Modal>
         </View>
+        {/*Modal for menu*/}
+
+        <Modal
+          animationIn="fade"
+          animationOut="slideOutRight"
+          transparent={true}
+          visible={openmenu}
+          onRequestClose={() => {
+            setmenu(!openmenu);
+          }}
+        >
+          <View
+            style={{
+              width: "50%",
+              height: "100%",
+              backgroundColor: "white",
+              borderWidth: 1,
+              borderRadius: 3,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 1,
+              shadowRadius: 3.84,
+
+              elevation: 5,
+            }}
+          >
+            <View style={styles.footer}>
+              <TextInput
+                style={styles.input}
+                onChangeText={(e) => {
+                  settempURL(e);
+                  setURL("http://" + e + ":5000/");
+                  console.log("YEss", URL);
+                }}
+                value={tempURL}
+                placeholder="URL"
+                keyboardType="numeric"
+              />
+              <Text style={styles.headerText}>Change Ip address</Text>
+            </View>
+          </View>
+        </Modal>
         {/* Modal for camera opening and autoclick */}
         <View>
           <Modal
@@ -90,7 +158,7 @@ export default function App() {
               setSelector(!openSelector);
             }}
           >
-            <Selector turnback={setSelector}></Selector>
+            <Selector turnback={setSelector} url={URL}></Selector>
           </Modal>
           {/* <Modal
             visible={opencam}
@@ -144,7 +212,7 @@ export default function App() {
         >
           <View style={{ margin: 30 }}>
             <Image source={p3} style={{ width: 90, height: 90 }} />
-            <Text style={styles.btns}>Siren</Text>
+            <Text style={[styles.btns, { marginLeft: 25 }]}>Siren</Text>
           </View>
           <View style={{ margin: 30 }}>
             <TouchableOpacity
@@ -243,9 +311,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+    marginTop: 20,
   },
   btns: {
     fontWeight: "bold",
+  },
+  input: {
+    borderWidth: 1,
+    padding: 4,
+    margin: 5,
   },
   // header: {
   //   color: "blue",

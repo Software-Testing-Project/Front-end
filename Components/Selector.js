@@ -15,7 +15,7 @@ import Image_Inside from "./camera2";
 import Camera_Module from "./Camera";
 import p5 from "../assets/5.png";
 import p6 from "../assets/6.png";
-export default function Selector({ turnback }) {
+export default function Selector({ turnback, url }) {
   const windowWidth = Dimensions.get("window").width;
   const [opencam, setcam] = useState(false);
   const [opencamera2, setcamera2] = useState(false);
@@ -34,7 +34,7 @@ export default function Selector({ turnback }) {
             setcam(!opencam);
           }}
         >
-          <Camera_Module turnback={setcam}></Camera_Module>
+          <Camera_Module turnback={setcam} url={url}></Camera_Module>
         </Modal>
       </View>
       <View>
@@ -47,7 +47,7 @@ export default function Selector({ turnback }) {
             setcamera2(!opencamera2);
           }}
         >
-          <Image_Inside turnback={setcamera2}></Image_Inside>
+          <Image_Inside turnback={setcamera2} url={url}></Image_Inside>
         </Modal>
       </View>
       <View style={{ flexDirection: "row", margin: 20 }}>

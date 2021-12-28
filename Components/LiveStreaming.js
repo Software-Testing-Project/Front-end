@@ -9,12 +9,12 @@ import {
   Image,
 } from "react-native";
 
-export default function LiveStreaming({ turnback }) {
+export default function LiveStreaming({ turnback, url }) {
   return (
     <View style={{ flex: 1, flexDirection: "column" }}>
       <WebView
         originWhitelist={["*"]}
-        source={{ uri: "http://192.168.137.40:5000/", baseUrl: "" }}
+        source={{ uri: url, baseUrl: "" }}
         style={{ flex: 0.5, height: 2 }}
       />
       <Button
