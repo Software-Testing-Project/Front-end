@@ -1,5 +1,6 @@
 import { WebView } from "react-native-webview";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import AppContext from "./AppContext";
 import {
   StyleSheet,
   Text,
@@ -9,21 +10,23 @@ import {
   Image,
 } from "react-native";
 
-export default function LiveStreaming({ turnback, url }) {
+export default function LiveStreaming({ turnback }) {
+  const myContext = useContext(AppContext);
+
   return (
     <View style={{ flex: 1, flexDirection: "column" }}>
       <WebView
         originWhitelist={["*"]}
-        source={{ uri: url, baseUrl: "" }}
+        source={{ uri: myContext.URL, baseUrl: "" }}
         style={{ flex: 0.5, height: 2 }}
       />
-      <Button
+      {/* <Button
         title="Back"
         onPress={() => {
           //setsaved(null);
           turnback(false);
         }}
-      />
+      /> */}
     </View>
   );
 }

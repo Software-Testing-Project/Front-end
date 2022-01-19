@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import AppContext from "./AppContext";
 import {
   StyleSheet,
   Text,
@@ -9,7 +10,9 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 export default function Image_Inside({ url }) {
-  url = url.concat("Postimages");
+  const myContext = useContext(AppContext);
+
+  url = myContext.URL.concat("Postimages");
   console.log(url);
   const [image, setImage] = useState(null);
   useEffect(() => {

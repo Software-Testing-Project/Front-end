@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import AppContext from "./AppContext";
 import {
   StyleSheet,
   Text,
@@ -11,7 +12,8 @@ import * as FaceDetector from "expo-face-detector";
 import { Camera } from "expo-camera";
 
 export default function Camera_Module({ turnback, url }) {
-  url = url.concat("Postimages");
+  const myContext = useContext(AppContext);
+  url = myContext.URL.concat("Postimages");
   const [hasPermission, setHasPermission] = useState(null);
   const [saved, setsaved] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
