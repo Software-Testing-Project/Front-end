@@ -28,7 +28,7 @@
 // }
 
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -36,20 +36,26 @@ import {
   Image,
   TextInput,
   Button,
+  ActivityIndicator,
   TouchableOpacity,
   Alert,
 } from "react-native";
 import {
   getAuth,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import AppContext from "./AppContext";
 export default function Signup({ navigation }) {
+  const [isready, setready] = useState(false);
+  const myContext = useContext(AppContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setUserName] = useState("");
   const auth = getAuth();
   const handleSignup = () => {
+    setready(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -57,18 +63,38 @@ export default function Signup({ navigation }) {
           displayName: displayName,
         })
           .then(() => {
+            signInWithEmailAndPassword(auth, email, password)
+              .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                setready(false);
+                myContext.setsignedin(true);
+
+                // ...
+              })
+              .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                setready(false);
+                Alert.alert("Login failed", "Email or passwrod is incorrect");
+                console.log(errorMessage);
+              });
+
             // Profile updated!
             console.log("Name added");
+
             // ...
           })
           .catch((error) => {
             // An error occurred
+            setready(false);
             console.log(error.message);
             // ...
           });
         // ...
       })
       .catch((error) => {
+        setready(false);
         const errorCode = error.code;
         const errorMessage = error.message;
         let myArray = errorMessage.split("/");
@@ -85,7 +111,11 @@ export default function Signup({ navigation }) {
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require("../assets/Logo.png")} />
-
+      {isready ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <View></View>
+      )}
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
