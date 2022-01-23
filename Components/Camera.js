@@ -17,12 +17,14 @@ export default function Camera_Module({ turnback, url }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [saved, setsaved] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
+  const images = [];
   const ref = useRef(null);
   const takePhoto = async () => {
     //console.log("Yes Yes");
     const photo = await ref.current.takePictureAsync({ base64: true });
     setsaved(photo.uri);
-
+    images.push(photo.uri);
+    console.log(images.length);
     let result = photo;
     if (result) {
       fetch(url, {
@@ -34,7 +36,7 @@ export default function Camera_Module({ turnback, url }) {
         body: JSON.stringify({
           img: result.base64,
         }),
-      }).then(console.log("YEsss posted"));
+      }).then();
     }
   };
 
@@ -48,7 +50,7 @@ export default function Camera_Module({ turnback, url }) {
   const hanldeface = ({ faces }) => {
     //console.log(faces);
     if (faces.length > 0) {
-      console.log("Yes");
+      // console.log("Yes");
       takePhoto();
     }
   };

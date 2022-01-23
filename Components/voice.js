@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { View, StyleSheet, Button, Text } from "react-native";
 import { Audio } from "expo-av";
 
-export default function App() {
+export default function Voice() {
   // Refs for the audio
   const AudioRecorder = useRef(new Audio.Recording());
   const AudioPlayer = useRef(new Audio.Sound());

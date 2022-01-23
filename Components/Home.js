@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    marginTop: 0,
+    marginTop: 20,
   },
   btns: {
     fontWeight: "bold",
