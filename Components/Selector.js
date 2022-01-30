@@ -15,7 +15,7 @@ import Image_Inside from "./camera2";
 import Camera_Module from "./Camera";
 import p5 from "../assets/5.png";
 import p6 from "../assets/6.png";
-export default function Selector({ turnback, url }) {
+export default function Selector({ turnback, url, navigation }) {
   const windowWidth = Dimensions.get("window").width;
   const [opencam, setcam] = useState(false);
   const [opencamera2, setcamera2] = useState(false);
@@ -52,21 +52,13 @@ export default function Selector({ turnback, url }) {
       </View>
       <View style={{ flexDirection: "row", margin: 20 }}>
         <View style={{ margin: 20 }}>
-          <TouchableOpacity
-            onPress={() => {
-              setcam(true);
-            }}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate("Camera1")}>
             <Image source={p5} style={{ width: 90, height: 90 }} />
             <Text style={styles.btns}>Open camera</Text>
           </TouchableOpacity>
         </View>
         <View style={{ margin: 20, marginLeft: 50 }}>
-          <TouchableOpacity
-            onPress={() => {
-              setcamera2(true);
-            }}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate("Camera2")}>
             <Image source={p6} style={{ width: 90, height: 90 }} />
             <Text style={styles.btns}>Open Gallery</Text>
           </TouchableOpacity>

@@ -10,36 +10,46 @@ import {
 } from "react-native";
 import * as FaceDetector from "expo-face-detector";
 import { Camera } from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
 
-export default function Camera_Module({ turnback, url }) {
+export default function Camera_Module({ turnback, url, navigation }) {
   const myContext = useContext(AppContext);
   url = myContext.URL.concat("Postimages");
   const [hasPermission, setHasPermission] = useState(null);
   const [saved, setsaved] = useState(null);
+  const [counter, setcount] = useState(0);
   const [type, setType] = useState(Camera.Constants.Type.front);
-  const images = [];
+  const [images, setimages] = useState({});
   const ref = useRef(null);
-  const takePhoto = async () => {
-    //console.log("Yes Yes");
-    const photo = await ref.current.takePictureAsync({ base64: true });
-    setsaved(photo.uri);
-    images.push(photo.uri);
-    console.log(images.length);
-    let result = photo;
-    if (result) {
-      fetch(url, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          img: result.base64,
-        }),
-      }).then();
-    }
+
+  const hande_save = async (photo) => {
+    const assert = await MediaLibrary.createAssetAsync(photo);
+    MediaLibrary.createAlbumAsync("UploadImages123", assert).then(
+      console.log("Picture clicked")
+    );
   };
 
+  const takePhoto = async () => {
+    if (counter < 3) {
+      const photo = await ref.current.takePictureAsync({ base64: true });
+      setsaved(photo.uri);
+      hande_save(photo.uri);
+      setcount(counter + 1);
+    }
+
+    //console.log(images.length);
+  };
+  const view_photos = async () => {
+    const folder = await MediaLibrary.getAlbumAsync("UploadImages123", {
+      includeSmartAlbums: true,
+    });
+
+    const response = await MediaLibrary.getAssetsAsync({ album: folder });
+    // console.log(response.assets[0]);
+    console.log(response.assets.length);
+    global.all_images = response.assets;
+    navigation.navigate("ViewImages1");
+  };
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -56,47 +66,36 @@ export default function Camera_Module({ turnback, url }) {
   };
   return (
     <View style={styles.container}>
-      <Camera
-        type={type}
-        style={styles.camera}
-        ratio="16:9"
-        ref={ref}
-        onFacesDetected={hanldeface}
-        faceDetectorSettings={{
-          mode: FaceDetector.FaceDetectorMode.accurate,
-          detectLandmarks: FaceDetector.FaceDetectorLandmarks.none,
-          runClassifications: FaceDetector.FaceDetectorClassifications.none,
-          minDetectionInterval: 3000,
-          tracking: true,
-        }}
-      ></Camera>
-      <Button
-        title="Flip"
-        onPress={() => {
-          setType(
-            type === Camera.Constants.Type.back
-              ? Camera.Constants.Type.front
-              : Camera.Constants.Type.back
-          );
-        }}
-      />
-      <View>
-        <TouchableOpacity onPress={takePhoto} style={styles.savebtn}>
-          <Text style={styles.text}>Save Pic</Text>
-        </TouchableOpacity>
-        {!saved ? (
-          <Text>NO picture saved</Text>
-        ) : (
-          <Image source={{ uri: saved }} style={styles.camera} />
-        )}
-      </View>
-      <Button
-        title="Back"
-        onPress={() => {
-          setsaved(null);
-          turnback(false);
-        }}
-      />
+      {counter < 3 ? (
+        <View>
+          <Camera
+            type={type}
+            style={styles.camera}
+            ratio="16:9"
+            ref={ref}
+            onFacesDetected={hanldeface}
+            faceDetectorSettings={{
+              mode: FaceDetector.FaceDetectorMode.accurate,
+              detectLandmarks: FaceDetector.FaceDetectorLandmarks.none,
+              runClassifications: FaceDetector.FaceDetectorClassifications.none,
+              minDetectionInterval: 3000,
+              tracking: true,
+            }}
+          ></Camera>
+          <Button
+            title="Flip"
+            onPress={() => {
+              setType(
+                type === Camera.Constants.Type.back
+                  ? Camera.Constants.Type.front
+                  : Camera.Constants.Type.back
+              );
+            }}
+          />
+        </View>
+      ) : (
+        <Button title="View Photos" onPress={view_photos} />
+      )}
     </View>
   );
 }

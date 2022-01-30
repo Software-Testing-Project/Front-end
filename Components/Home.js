@@ -225,7 +225,9 @@ export default function Home({ navigation }) {
             <Text style={[styles.btns, { marginLeft: 25 }]}>Siren</Text>
           </View>
           <View style={{ margin: 30 }}>
-            <TouchableOpacity onPress={() => navigation.navigate("New Person")}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("New Person1")}
+            >
               <Entypo name="add-user" size={90} color="black" />
               {/* <Image source={p4} style={{ width: 90, height: 90 }} /> */}
               <Text style={styles.btns}>New Person</Text>
@@ -318,7 +320,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    marginTop: 20,
   },
   btns: {
     fontWeight: "bold",

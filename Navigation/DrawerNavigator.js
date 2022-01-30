@@ -49,6 +49,7 @@ const DrawerNavigator = () => {
             drawerIcon: ({ focused, size }) => (
               <Entypo name="home" size={24} color="black" />
             ),
+            headerShown: false,
           }}
         />
         <Drawer.Screen
@@ -58,6 +59,7 @@ const DrawerNavigator = () => {
             drawerIcon: ({ focused, size }) => (
               <Ionicons name="person-add" size={24} color="black" />
             ),
+            headerShown: false,
           }}
         />
         <Drawer.Screen
@@ -67,6 +69,7 @@ const DrawerNavigator = () => {
             drawerIcon: ({ focused, size }) => (
               <MaterialCommunityIcons name="cctv" size={24} color="black" />
             ),
+            headerShown: false,
           }}
         />
         <Drawer.Screen
@@ -80,6 +83,7 @@ const DrawerNavigator = () => {
                 color="black"
               />
             ),
+            headerShown: false,
           }}
         />
         <Drawer.Screen
@@ -90,6 +94,7 @@ const DrawerNavigator = () => {
             drawerIcon: ({ focused, size }) => (
               <Entypo name="bell" size={24} color="black" />
             ),
+            headerShown: false,
           }}
         />
         <Drawer.Screen
@@ -100,6 +105,7 @@ const DrawerNavigator = () => {
             drawerIcon: ({ focused, size }) => (
               <Ionicons name="call" size={24} color="black" />
             ),
+            headerShown: false,
           }}
         />
 
@@ -110,6 +116,7 @@ const DrawerNavigator = () => {
             drawerIcon: ({ focused, size }) => (
               <Ionicons name="settings" size={24} color="black" />
             ),
+            headerShown: false,
           }}
         />
         <Drawer.Screen
@@ -119,6 +126,7 @@ const DrawerNavigator = () => {
             drawerIcon: ({ focused, size }) => (
               <MaterialCommunityIcons name="logout" size={24} color="black" />
             ),
+            headerShown: false,
           }}
         />
       </Drawer.Navigator>
