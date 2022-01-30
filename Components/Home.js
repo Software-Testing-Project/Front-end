@@ -1,12 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useContext } from "react";
 import logo from "../assets/Logo.png";
-import p1 from "../assets/1.png";
-import p2 from "../assets/2.png";
-import p3 from "../assets/3.png";
-import p4 from "../assets/4.png";
-import p7 from "../assets/7.png";
-import p8 from "../assets/8.png";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import AppContext from "./AppContext";
 import {
   StyleSheet,
@@ -197,7 +195,12 @@ export default function Home({ navigation }) {
             <TouchableOpacity
               onPress={() => navigation.navigate("Search Video")}
             >
-              <Image source={p1} style={{ width: 90, height: 90 }} />
+              <MaterialCommunityIcons
+                name="movie-search"
+                size={90}
+                color="black"
+              />
+              {/* <Image source={p1} style={{ width: 90, height: 90 }} /> */}
               <Text style={styles.btns}>Search Video</Text>
             </TouchableOpacity>
           </View>
@@ -205,7 +208,8 @@ export default function Home({ navigation }) {
             <TouchableOpacity
               onPress={() => navigation.navigate("Live Streaming")}
             >
-              <Image source={p2} style={{ width: 90, height: 90 }} />
+              <MaterialCommunityIcons name="cctv" size={90} color="black" />
+              {/* <Image source={p2} style={{ width: 90, height: 90 }} /> */}
               <Text style={styles.btns}>Live Streaming</Text>
             </TouchableOpacity>
           </View>
@@ -216,12 +220,14 @@ export default function Home({ navigation }) {
           }}
         >
           <View style={{ margin: 30 }}>
-            <Image source={p3} style={{ width: 90, height: 90 }} />
+            <FontAwesome name="bell" size={90} color="black" />
+            {/* <Image source={p3} style={{ width: 90, height: 90 }} /> */}
             <Text style={[styles.btns, { marginLeft: 25 }]}>Siren</Text>
           </View>
           <View style={{ margin: 30 }}>
             <TouchableOpacity onPress={() => navigation.navigate("New Person")}>
-              <Image source={p4} style={{ width: 90, height: 90 }} />
+              <Entypo name="add-user" size={90} color="black" />
+              {/* <Image source={p4} style={{ width: 90, height: 90 }} /> */}
               <Text style={styles.btns}>New Person</Text>
             </TouchableOpacity>
           </View>
