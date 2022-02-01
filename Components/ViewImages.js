@@ -26,7 +26,7 @@ export default function ViewImages({ navigation }) {
   const [isready, setready] = useState(false);
   useEffect(() => {
     set_saved_Images(global.all_images);
-  });
+  }, []);
 
   const myContext = useContext(AppContext);
   let url = myContext.URL;
@@ -63,22 +63,44 @@ export default function ViewImages({ navigation }) {
     }
   };
   const sendto_server_wrapper = async () => {
-    const get_res = await sendto_server();
-    const folder = await MediaLibrary.getAlbumAsync("UploadImages123", {
-      includeSmartAlbums: true,
-    });
-    console.log(folder);
-    const response = await MediaLibrary.deleteAlbumsAsync(folder.id);
-    Alert.alert("Upload complete", "All images are uploadded", [
-      {
-        text: "OK",
-        onPress: () => navigation.navigate("New Person1"),
-        style: "ok",
-      },
-    ]);
-    setready(false);
+    if (saved_images.length > 0) {
+      const get_res = await sendto_server();
+      const folder = await MediaLibrary.getAlbumAsync("UploadImages123", {
+        includeSmartAlbums: true,
+      });
+      console.log(folder);
+      const response = await MediaLibrary.deleteAlbumsAsync(folder.id);
+      Alert.alert("Upload complete", "All images are uploadded", [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("New Person1"),
+          style: "ok",
+        },
+      ]);
+      setready(false);
+    } else {
+      const folder = await MediaLibrary.getAlbumAsync("UploadImages123", {
+        includeSmartAlbums: true,
+      });
+      console.log(folder);
+      const response = await MediaLibrary.deleteAlbumsAsync(folder.id);
+      Alert.alert("Upload Unsuccessfull", "No images exist", [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("New Person1"),
+          style: "ok",
+        },
+      ]);
+      console.log("No images");
+    }
   };
-
+  const removeImage = (id) => {
+    let arr = saved_images;
+    arr = arr.filter((item) => item.id != id);
+    set_saved_Images(arr);
+    console.log(saved_images.length, "saved");
+    console.log("DOne");
+  };
   return (
     <View>
       <View>
@@ -95,20 +117,26 @@ export default function ViewImages({ navigation }) {
         data={saved_images}
         numColumns={3}
         renderItem={({ item, index }) => (
-          <Image
-            source={{ uri: item.uri, isStatic: true }}
-            /* Use item to set the image source */
-            key={item.id} /* Important to set a key for list items,
-                       but it's wrong to use indexes as keys, see below */
-            style={{
-              width: "25%",
-              height: 100,
-              borderWidth: 2,
-              borderColor: "#d35647",
-              resizeMode: "contain",
-              margin: 8,
+          <TouchableOpacity
+            onPress={() => {
+              removeImage(item.id);
             }}
-          />
+          >
+            <Image
+              source={{ uri: item.uri, isStatic: true }}
+              /* Use item to set the image source */
+              key={item.id} /* Important to set a key for list items,
+                       but it's wrong to use indexes as keys, see below */
+              style={{
+                width: 100,
+                height: 150,
+                borderWidth: 2,
+                borderColor: "#d35647",
+                resizeMode: "contain",
+                margin: 8,
+              }}
+            />
+          </TouchableOpacity>
         )}
       />
     </View>

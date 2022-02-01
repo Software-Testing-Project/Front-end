@@ -12,7 +12,7 @@ import {
 
 export default function LiveStreaming({ turnback }) {
   const myContext = useContext(AppContext);
-
+  console.log(myContext.URL);
   return (
     <View style={{ flex: 1, flexDirection: "column" }}>
       <WebView

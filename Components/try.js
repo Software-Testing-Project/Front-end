@@ -9,8 +9,12 @@ import {
   TextInput,
 } from "react-native";
 import AppContext from "./AppContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Try() {
+  const storeData = async (value) => {
+    await AsyncStorage.setItem("@storage_Key", value);
+  };
   const myContext = useContext(AppContext);
 
   return (
@@ -21,6 +25,7 @@ export default function Try() {
           style={styles.input}
           onChangeText={(e) => {
             myContext.settempURL(e);
+            storeData(e);
             myContext.setURL("http://" + e + ":5000/");
             console.log("YEss", myContext.URL);
           }}

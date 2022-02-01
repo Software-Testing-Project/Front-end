@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   Button,
   Image,
+  Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-export default function Image_Inside({ url }) {
+export default function Image_Inside({ url, navigation }) {
   const myContext = useContext(AppContext);
 
   url = myContext.URL.concat("Postimages");
@@ -26,6 +27,23 @@ export default function Image_Inside({ url }) {
       }
     })();
   }, []);
+  useEffect(() => {
+    pickImage();
+  }, []);
+  useEffect(() => {
+    Alert.alert(
+      "Upload complete",
+      "All images are uploadded",
+      [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("New Person1"),
+          style: "ok",
+        },
+      ],
+      [image]
+    );
+  });
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -52,9 +70,10 @@ export default function Image_Inside({ url }) {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
       {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+        <View>
+          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+        </View>
       )}
     </View>
   );

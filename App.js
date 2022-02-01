@@ -27,7 +27,26 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import { firebase_app } from "./firebase/firebase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export default function App() {
+  useEffect(() => {
+    async function fetchURL() {
+      const value = await AsyncStorage.getItem("@storage_Key");
+      if (value !== null) {
+        // value previously stored
+        console.log("Vleu present");
+        settempURL(value);
+      }
+      // error reading value
+      else {
+        console.log("Vleu mot present");
+      }
+    }
+
+    fetchURL();
+  }, []);
+
   firebase_app;
   const [tempURL, settempURL] = useState("39.45.32.51");
   const [URL, setURL] = useState("http://" + tempURL + ":5000/");

@@ -22,8 +22,26 @@ import {
 
 import LiveStreaming from "./LiveStreaming";
 import Selector from "./Selector";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home({ navigation }) {
+  useEffect(() => {
+    async function fetchURL() {
+      const value = await AsyncStorage.getItem("@storage_Key");
+      if (value !== null) {
+        // value previously stored
+        console.log("Vleu present");
+        console.log(value);
+      }
+      // error reading value
+      else {
+        console.log("Vleu mot present");
+      }
+    }
+
+    fetchURL();
+  });
+
   // const [todos, set_todos] = useState([
   //   {
   //     name: "Pizza",
