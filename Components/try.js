@@ -31,7 +31,7 @@ export default function Try() {
           }}
           value={myContext.tempURL}
           placeholder="URL"
-          keyboardType="numeric"
+          keyboardType="phone-pad"
         />
         <Text style={styles.headerText}>Change Ip address</Text>
       </View>

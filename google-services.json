@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "369357215380",
+    "project_id": "smart-guard-280e9",
+    "storage_bucket": "smart-guard-280e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369357215380:android:6b0d3f29dcf48512c18681",
+        "android_client_info": {
+          "package_name": "com.Fast.SmartGuard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369357215380-104875s90aldtbkqjpf5p4r30ih8couq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA829DP8sEuKB6IdpwTuaoEwmiGpjnvibw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369357215380-104875s90aldtbkqjpf5p4r30ih8couq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -45,7 +45,8 @@
     "react-navigation": "^4.4.4",
     "react-navigation-drawer": "^2.7.1",
     "react-redux": "^7.2.6",
-    "redux": "^4.1.2"
+    "redux": "^4.1.2",
+    "expo-notifications": "~0.13.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

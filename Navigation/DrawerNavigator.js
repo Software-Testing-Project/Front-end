@@ -19,6 +19,7 @@ import AppContext from "../Components/AppContext";
 import { createStackNavigator } from "@react-navigation/stack";
 import Logout from "../Components/Logout";
 import Call from "../Components/Call";
+import Notification_Subscribe from "../Components/Notification_Subscribe";
 import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -122,6 +123,16 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name="Logout"
           component={Logout}
+          options={{
+            drawerIcon: ({ focused, size }) => (
+              <MaterialCommunityIcons name="logout" size={24} color="black" />
+            ),
+            headerShown: false,
+          }}
+        />
+        <Drawer.Screen
+          name="Subscribe"
+          component={Notification_Subscribe}
           options={{
             drawerIcon: ({ focused, size }) => (
               <MaterialCommunityIcons name="logout" size={24} color="black" />

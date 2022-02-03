@@ -2,7 +2,7 @@
   "expo": {
     "name": "SmartGuard",
     "slug": "SmartGuard",
-    "version": "1.4.2",
+    "version": "2.0.2",
     "orientation": "portrait",
     "icon": "./assets/Logo.png",
     "splash": {
@@ -19,6 +19,8 @@
       "supportsTablet": true
     },
     "android": {
+      "useNextNotificationsApi": true,
+      "googleServicesFile": "./google-services.json",
       "package": "com.Fast.SmartGuard",
       "adaptiveIcon": {
         "foregroundImage": "./assets/Logo.png",

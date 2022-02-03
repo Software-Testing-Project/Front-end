@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, StyleSheet, Button, Text } from "react-native";
 import { Audio } from "expo-av";
+import Video_List from "./Video_List";
 
 export default function Voice() {
   // Refs for the audio
@@ -99,7 +100,7 @@ export default function Voice() {
 
   return (
     <View style={styles.container}>
-      <Button
+      {/* <Button
         title={IsRecording ? "Stop Recording" : "Start Recording"}
         color={IsRecording ? "red" : "green"}
         onPress={IsRecording ? StopRecording : StartRecording}
@@ -109,7 +110,8 @@ export default function Voice() {
         color={IsPLaying ? "red" : "orange"}
         onPress={IsPLaying ? StopPlaying : PlayRecordedAudio}
       />
-      <Text>{RecordedURI}</Text>
+      <Text>{RecordedURI}</Text> */}
+      <Video_List />
     </View>
   );
 }

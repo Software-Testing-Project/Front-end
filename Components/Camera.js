@@ -64,7 +64,9 @@ export default function Camera_Module({ turnback, url, navigation }) {
       setHasPermission(status === "granted");
     })();
   }, []);
-
+  useEffect(() => {
+    MediaLibrary.requestPermissionsAsync();
+  }, []);
   const hanldeface = ({ faces }) => {
     //console.log(faces);
     if (faces.length > 0) {

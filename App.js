@@ -28,7 +28,14 @@ import {
 } from "@react-navigation/drawer";
 import { firebase_app } from "./firebase/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import * as Notifications from "expo-notifications";
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldShowAlert: true,
+    };
+  },
+});
 export default function App() {
   useEffect(() => {
     async function fetchURL() {
@@ -37,6 +44,7 @@ export default function App() {
         // value previously stored
         console.log("Vleu present");
         settempURL(value);
+        setURL("http://" + value + ":5000/");
       }
       // error reading value
       else {
@@ -46,11 +54,32 @@ export default function App() {
 
     fetchURL();
   }, []);
+  // useEffect(() => {
+  //   Notifications.getExpoPushTokenAsync().then((response) => {
+  //     setPushToken(response.data);
+  //   });
+  // });
 
+  useEffect(() => {
+    const backgroundSubscription =
+      Notifications.addNotificationResponseReceivedListener((notification) => {
+        console.log(notification); // passs the screen name in data and then navigate ot send http request
+      });
+
+    const foregroundSubscription =
+      Notifications.addNotificationReceivedListener((notification) => {
+        console.log(notification);
+      });
+    return () => {
+      backgroundSubscription.remove();
+      foregroundSubscription.remove();
+    };
+  }, []);
   firebase_app;
   const [tempURL, settempURL] = useState("39.45.32.51");
   const [URL, setURL] = useState("http://" + tempURL + ":5000/");
   const [issignedin, setsignedin] = useState(false);
+  const [pushToken, setPushToken] = useState(null);
   const userSettings = {
     URL: URL,
     tempURL: tempURL,
@@ -59,8 +88,33 @@ export default function App() {
     issignedin,
     setsignedin,
   };
+  const Trigeer_Notification = () => {
+    //In app local notifications
+    // Notifications.scheduleNotificationAsync({
+    //   content: {
+    //     title: "My first Notification",
+    //     body: "THis is my first notifcation in expo",
+    //   },
+    //   trigger: {
+    //     seconds: 5,
+    //   },
+    // });
+    //For Push notifications
+    // fetch("https://exp.host/--/api/v2/push/send", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Accept-Encoding": "gzip,deflate ",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     to: pushToken,
+    //     title: "From inside push notification",
+    //   }),
+    // });
+  };
 
-  const Drawer = createDrawerNavigator();
+  console.log(userSettings);
   return (
     <AppContext.Provider value={userSettings}>
       <NavigationContainer>
