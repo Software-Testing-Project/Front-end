@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useContext } from "react";
 import logo from "../assets/Logo.png";
 
@@ -18,6 +17,7 @@ import {
   TextInput,
   Button,
   Modal,
+  StatusBar,
 } from "react-native";
 
 import LiveStreaming from "./LiveStreaming";
@@ -104,90 +104,6 @@ export default function Home({ navigation }) {
         </View>
       </View>
       <View>
-        {/* Modal for live streaming */}
-        <View>
-          <Modal
-            visible={openlivestream}
-            animationType="slide"
-            presentationStyle="fullScreen"
-            style={styles.Modal}
-            onRequestClose={() => {
-              setlivestream(!openlivestream);
-            }}
-          >
-            <LiveStreaming
-              turnback={setlivestream}
-              url={myContext.URL}
-            ></LiveStreaming>
-          </Modal>
-        </View>
-        {/*Modal for menu*/}
-
-        {/* <Modal
-          animationIn="fade"
-          animationOut="slideOutRight"
-          transparent={true}
-          visible={openmenu}
-          onRequestClose={() => {
-            setmenu(!openmenu);
-          }}
-        >
-          <View
-            style={{
-              width: "50%",
-              height: "100%",
-              backgroundColor: "white",
-              borderWidth: 1,
-              borderRadius: 3,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 1,
-              shadowRadius: 3.84,
-
-              elevation: 5,
-            }}
-          >
-            <View style={styles.footer}>
-              <TextInput
-                style={styles.input}
-                onChangeText={(e) => {
-                  settempURL(e);
-                  setURL("http://" + e + ":5000/");
-                  console.log("YEss", URL);
-                }}
-                value={tempURL}
-                placeholder="URL"
-                keyboardType="numeric"
-              />
-              <Text style={styles.headerText}>Change Ip address</Text>
-            </View>
-          </View>
-        </Modal>
-        Modal for camera opening and autoclick */}
-        <View>
-          <Modal
-            visible={openSelector}
-            animationType="slide"
-            presentationStyle="fullScreen"
-            style={styles.Modal}
-            onRequestClose={() => {
-              setSelector(!openSelector);
-            }}
-          >
-            <Selector turnback={setSelector} url={myContext.URL}></Selector>
-          </Modal>
-          {/* <Modal
-            visible={opencam}
-            animationType="slide"
-            presentationStyle="fullScreen"
-            style={styles.Modal}
-          >
-            <Camera_Module turnback={setcam}></Camera_Module>
-          </Modal> */}
-        </View>
         <Text
           style={{
             width: windowWidth,

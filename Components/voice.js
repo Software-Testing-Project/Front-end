@@ -10,6 +10,7 @@ export default function Voice() {
 
   // States for UI
   const [RecordedURI, SetRecordedURI] = useState("");
+  const [message, setmessage] = useState("");
   const [AudioPermission, SetAudioPermission] = useState(false);
   const [IsRecording, SetIsRecording] = useState(false);
   const [IsPLaying, SetIsPLaying] = useState(false);
@@ -57,10 +58,14 @@ export default function Voice() {
 
       // Get the recorded URI here
       const result = AudioRecorder.current.getURI();
-      if (result) SetRecordedURI(result);
+      if (result) {
+        SetRecordedURI(result);
+        uploadvoice(result);
+      }
 
       // Reset the Audio Recorder
       AudioRecorder.current = new Audio.Recording();
+
       SetIsRecording(false);
     } catch (error) {}
   };
@@ -84,6 +89,76 @@ export default function Voice() {
     } catch (error) {}
   };
 
+  const uploadvoice = async (result) => {
+    // 1. initialize request
+    console.log("Inside", result);
+    const form_Data = new FormData();
+    form_Data.append("file", {
+      uri: result, // this is the path to your file. see Expo ImagePicker or React Native ImagePicker
+      type: `audio/m4a`, // example: image/jpg
+      name: `test.m4a`, // example: upload.jpg
+    });
+
+    fetch("http://192.168.10.11:5000/voice", {
+      method: "POST",
+      headers: {
+        enctype: "multipart/form-data",
+      },
+      body: form_Data,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setmessage(data["message"]);
+        console.log(data["message"]);
+      })
+      .catch((e) => {
+        console.log("Error is", e);
+      });
+
+    // const xhr = new XMLHttpRequest();
+    // // 2. open request
+    // xhr.open("POST", "http://192.168.137.238:5000/voice");
+
+    // // 3. set up callback for request
+    // xhr.onload = () => {
+    //   const response = JSON.parse(xhr.response);
+    //   console.log(response);
+    //   // ... do something with the successful response
+    // };
+    // // 4. catch for request error
+    // xhr.onerror = (e) => {
+    //   console.log(e, "upload failed");
+    // };
+    // // 4. catch for request timeout
+    // xhr.ontimeout = (e) => {
+    //   console.log(e, "upload timeout");
+    // };
+    // // 4. create formData to upload
+    // //const formData = new FormData();
+    // var t = result.split(
+    //   "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540popeyeee%252FSmartGuard/Audio/"
+    // );
+    // t = result.split(".m4a");
+    // console.log(t);
+    // var ending = ".m4a";
+    // formData.append("file", {
+    //   uri: result, // this is the path to your file. see Expo ImagePicker or React Native ImagePicker
+    //   type: `audio/${ending}`, // example: image/jpg
+    //   name: `${t[0]}.${ending}`, // example: upload.jpg
+    // });
+    // // 6. upload the request
+    // xhr.send(formData);
+
+    // // 7. track upload progress
+    // if (xhr.upload) {
+    //   // track the upload progress
+    //   xhr.upload.onprogress = ({ total, loaded }) => {
+    //     const uploadProgress = loaded / total;
+
+    //     console.log(uploadProgress);
+    //   };
+    // }
+  };
   // Function to stop the playing audio
   const StopPlaying = async () => {
     try {
@@ -100,7 +175,8 @@ export default function Voice() {
 
   return (
     <View style={styles.container}>
-      {/* <Button
+      <Text>You said: {message}</Text>
+      <Button
         title={IsRecording ? "Stop Recording" : "Start Recording"}
         color={IsRecording ? "red" : "green"}
         onPress={IsRecording ? StopRecording : StartRecording}
@@ -110,8 +186,8 @@ export default function Voice() {
         color={IsPLaying ? "red" : "orange"}
         onPress={IsPLaying ? StopPlaying : PlayRecordedAudio}
       />
-      <Text>{RecordedURI}</Text> */}
-      <Video_List />
+
+      {/* <Video_List /> */}
     </View>
   );
 }

@@ -55,16 +55,38 @@ export default function Image_Inside({ url, navigation }) {
     console.log(result.uri);
 
     if (!result.cancelled) {
+      //   fetch(url, {
+      //     method: "POST",
+      //     headers: {
+      //       Accept: "application/json",
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       img: result.base64,
+      //     }),
+      //   }).then(setImage(result.uri));
+      const form_Data = new FormData();
+      form_Data.append("file", {
+        uri: result.uri, // this is the path to your file. see Expo ImagePicker or React Native ImagePicker
+        type: `image/jpg`, // example: image/jpg
+        name: `pic.jpg`, // example: upload.jpg
+      });
+
       fetch(url, {
         method: "POST",
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          enctype: "multipart/form-data",
         },
-        body: JSON.stringify({
-          img: result.base64,
-        }),
-      }).then(setImage(result.uri));
+        body: form_Data,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setImage(result.uri);
+        })
+        .catch((err) => {
+          console.log("Error is", err);
+        });
     }
   };
 

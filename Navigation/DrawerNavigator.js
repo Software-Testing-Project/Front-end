@@ -71,6 +71,7 @@ const DrawerNavigator = () => {
               <MaterialCommunityIcons name="cctv" size={24} color="black" />
             ),
             headerShown: false,
+            unmountOnBlur: true,
           }}
         />
         <Drawer.Screen
