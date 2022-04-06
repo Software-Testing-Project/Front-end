@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppContext from "./AppContext";
 import {
   StyleSheet,
@@ -16,6 +17,7 @@ export default function Image_Inside({ url, navigation }) {
   url = myContext.URL.concat("Postimages");
   console.log(url);
   const [image, setImage] = useState(null);
+  const [name, setname] = useState(null);
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -65,11 +67,19 @@ export default function Image_Inside({ url, navigation }) {
       //       img: result.base64,
       //     }),
       //   }).then(setImage(result.uri));
+
+      const value = await AsyncStorage.getItem("@user_name");
+      if (value != null) {
+        console.log("Name is ", value);
+      }
+
       const form_Data = new FormData();
+
       form_Data.append("file", {
         uri: result.uri, // this is the path to your file. see Expo ImagePicker or React Native ImagePicker
         type: `image/jpg`, // example: image/jpg
-        name: `pic.jpg`, // example: upload.jpg
+
+        name: `${value}.jpg`, // example: upload.jpg
       });
 
       fetch(url, {

@@ -29,6 +29,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import AppContext from "./AppContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   StyleSheet,
   Text,
@@ -50,12 +51,18 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState("");
   const [isready, setready] = useState(false);
 
+  const storeName = async (value) => {
+    await AsyncStorage.setItem("@user_name", value);
+  };
+
   const VerifyUser = (e, p) => {
     setready(true);
     signInWithEmailAndPassword(auth, e, p)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        console.log(user.displayName);
+        storeName(user.displayName);
         setready(false);
         myContext.setsignedin(true);
         // ...

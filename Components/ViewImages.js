@@ -18,6 +18,7 @@ import {
 } from "react-native";
 import * as MediaLibrary from "expo-media-library";
 import AppContext from "./AppContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as FileSystem from "expo-file-system";
 export default function ViewImages({ navigation }) {
   const [saved_images, set_saved_Images] = useState(null);
@@ -31,35 +32,51 @@ export default function ViewImages({ navigation }) {
   const myContext = useContext(AppContext);
   let url = myContext.URL;
   url = url.concat("Postimages");
-  const postImages_toserver = async (result) => {
+  const postImages_toserver = async (result, i) => {
     setready(true);
+    const value = await AsyncStorage.getItem("@user_name");
+    if (value != null) {
+      console.log("Name is ", value);
+    }
+    const form_Data = new FormData();
+    form_Data.append("file", {
+      uri: result, // this is the path to your file. see Expo ImagePicker or React Native ImagePicker
+      type: `image/jpg`, // example: image/jpg
+
+      name: `${value + i}.jpg`, // example: upload.jpg
+    });
     fetch(url, {
       method: "POST",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        enctype: "multipart/form-data",
       },
-      body: JSON.stringify({
-        img: result,
-      }),
+      body: form_Data,
     })
-      .then()
-      .catch();
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log("Error is", err);
+      });
+
+    // fetch(url, {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     img: result,
+    //   }),
+    // })
+    //   .then()
+    //   .catch();
   };
-  const convert_to_base64 = async (e) => {
-    return await FileSystem.readAsStringAsync(e, {
-      encoding: "base64",
-    });
-  };
+
   const sendto_server = async () => {
     for (let i = 0; i < saved_images.length; i++) {
-      convert_to_base64(saved_images[i].uri).then((base64) => {
-        postImages_toserver(base64)
-          .then(() => {
-            console.log("Sendong");
-          })
-          .catch(() => {});
-      });
+      postImages_toserver(saved_images[i].uri, i);
     }
   };
   const sendto_server_wrapper = async () => {
@@ -70,7 +87,7 @@ export default function ViewImages({ navigation }) {
       });
       console.log(folder);
       const response = await MediaLibrary.deleteAlbumsAsync(folder.id);
-      Alert.alert("Upload complete", "All images are uploadded", [
+      Alert.alert("Uploading ", "All images will be uploaded soon ", [
         {
           text: "OK",
           onPress: () => navigation.navigate("New Person1"),
