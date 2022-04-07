@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, StyleSheet, Button, Text } from "react-native";
+import { View, StyleSheet, Button, Text, Alert } from "react-native";
 import { Audio } from "expo-av";
 import Video_List from "./Video_List";
 
@@ -113,6 +113,13 @@ export default function Voice() {
       })
       .catch((e) => {
         console.log("Error is", e);
+        Alert.alert("No network ", "Try Again later ", [
+          {
+            text: "OK",
+
+            style: "ok",
+          },
+        ]);
       });
 
     // const xhr = new XMLHttpRequest();

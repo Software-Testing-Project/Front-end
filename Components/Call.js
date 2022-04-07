@@ -29,22 +29,22 @@ export default function Call() {
       },
       body: data,
     })
-      .then((response) => {
-        if (response.status === 200) {
-          Alert.alert("Calling... ", PhoneNumber, [
-            {
-              text: "Ok",
-            },
-          ]);
-        } else {
-          Alert.alert("Calling failed", PhoneNumber, [
-            {
-              text: "Ok",
-            },
-          ]);
-        }
+      .then((response) => response.json())
+      .then((data) => {
+        Alert.alert("Calling... ", PhoneNumber, [
+          {
+            text: "Ok",
+          },
+        ]);
       })
-      .catch((error) => {});
+      .catch((err) => {
+        console.log("Error is", err);
+        Alert.alert("Calling failed", PhoneNumber, [
+          {
+            text: "Ok",
+          },
+        ]);
+      });
   };
 
   return (
@@ -56,6 +56,7 @@ export default function Call() {
           style={styles.TextInput}
           placeholder="Phone Number"
           placeholderTextColor="#003f5c"
+          keyboardType="phone-pad"
           onChangeText={(number) => setPhoneNumber(number)}
         />
       </View>

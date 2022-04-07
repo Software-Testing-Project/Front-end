@@ -12,8 +12,27 @@ import {
 } from "react-native";
 
 export default function LiveStreaming({ turnback }) {
+  const [visible, setVisible] = useState(false);
   const myContext = useContext(AppContext);
   console.log(myContext.URL);
+  const handle_error = () => {
+    return (
+      <View>
+        <ActivityIndicator
+          animating={true}
+          color="#84888d"
+          size="large"
+          hidesWhenStopped={true}
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 30,
+            flex: 1,
+          }}
+        />
+      </View>
+    );
+  };
   return (
     <View style={{ flex: 1, flexDirection: "column" }}>
       <WebView

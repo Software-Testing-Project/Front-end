@@ -58,6 +58,13 @@ export default function ViewImages({ navigation }) {
       })
       .catch((err) => {
         console.log("Error is", err);
+        Alert.alert("Error while uploading ", "Try Again later ", [
+          {
+            text: "OK",
+            onPress: () => navigation.navigate("New Person1"),
+            style: "ok",
+          },
+        ]);
       });
 
     // fetch(url, {

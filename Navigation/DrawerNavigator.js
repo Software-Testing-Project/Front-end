@@ -91,7 +91,6 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name="Siren"
           component={Try}
-          component={Speech}
           options={{
             drawerIcon: ({ focused, size }) => (
               <Entypo name="bell" size={24} color="black" />
@@ -102,7 +101,6 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name="Emergency Call"
           component={Call}
-          component={Speech}
           options={{
             drawerIcon: ({ focused, size }) => (
               <Ionicons name="call" size={24} color="black" />
@@ -136,7 +134,7 @@ const DrawerNavigator = () => {
           component={Notification_Subscribe}
           options={{
             drawerIcon: ({ focused, size }) => (
-              <MaterialCommunityIcons name="logout" size={24} color="black" />
+              <Entypo name="mail" size={24} color="black" />
             ),
             headerShown: false,
           }}
