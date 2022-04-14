@@ -1,14 +1,18 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { View, StyleSheet, Button, Text, Alert } from "react-native";
 import { Audio } from "expo-av";
 import Video_List from "./Video_List";
+import AppContext from "./AppContext";
 
-export default function Voice() {
+export default function Voice({ navigation }) {
   // Refs for the audio
   const AudioRecorder = useRef(new Audio.Recording());
   const AudioPlayer = useRef(new Audio.Sound());
 
   // States for UI
+  const myContext = useContext(AppContext);
+  let url = myContext.URL;
+  url = url.concat("voice");
   const [RecordedURI, SetRecordedURI] = useState("");
   const [message, setmessage] = useState("");
   const [AudioPermission, SetAudioPermission] = useState(false);
@@ -99,7 +103,7 @@ export default function Voice() {
       name: `test.m4a`, // example: upload.jpg
     });
 
-    fetch("http://192.168.10.11:5000/voice", {
+    fetch(url, {
       method: "POST",
       headers: {
         enctype: "multipart/form-data",
@@ -108,7 +112,35 @@ export default function Voice() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setmessage(data["message"]);
+        console.log(data["data"]);
+        if (data["data"] != "err") {
+          Alert.alert("You Said : ", data["message"], [
+            {
+              text: "OK",
+              style: "ok",
+
+              onPress: () => {
+                navigation.navigate("Search Result", {
+                  paramKey: data["data"],
+                });
+              },
+            },
+            {
+              text: "Cancel",
+            },
+          ]);
+        } else {
+          Alert.alert(
+            "You Said : ",
+            data["message"] + " so cannot procceed further",
+            [
+              {
+                text: "OK",
+                style: "ok",
+              },
+            ]
+          );
+        }
         console.log(data["message"]);
       })
       .catch((e) => {

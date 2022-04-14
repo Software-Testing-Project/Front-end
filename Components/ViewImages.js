@@ -19,7 +19,8 @@ import {
 import * as MediaLibrary from "expo-media-library";
 import AppContext from "./AppContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as FileSystem from "expo-file-system";
+import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
+
 export default function ViewImages({ navigation }) {
   const [saved_images, set_saved_Images] = useState(null);
   const stateRef = useRef().current;
@@ -34,13 +35,19 @@ export default function ViewImages({ navigation }) {
   url = url.concat("Postimages");
   const postImages_toserver = async (result, i) => {
     setready(true);
+    const manipResult = await manipulateAsync(
+      result,
+      [{ resize: { width: 480, height: 640 } }],
+      { format: "jpeg" }
+    );
+
     const value = await AsyncStorage.getItem("@user_name");
     if (value != null) {
       console.log("Name is ", value);
     }
     const form_Data = new FormData();
     form_Data.append("file", {
-      uri: result, // this is the path to your file. see Expo ImagePicker or React Native ImagePicker
+      uri: manipResult.uri, // this is the path to your file. see Expo ImagePicker or React Native ImagePicker
       type: `image/jpg`, // example: image/jpg
 
       name: `${value + i}.jpg`, // example: upload.jpg

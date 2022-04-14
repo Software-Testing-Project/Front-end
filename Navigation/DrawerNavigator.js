@@ -23,6 +23,7 @@ import Notification_Subscribe from "../Components/Notification_Subscribe";
 import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import forget_Password from "../Components/forget_Password";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -152,6 +153,11 @@ const DrawerNavigator = () => {
         <Stack.Screen
           name="Signup"
           component={Signup}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Forget Password"
+          component={forget_Password}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

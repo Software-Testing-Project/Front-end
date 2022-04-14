@@ -2,7 +2,7 @@
   "expo": {
     "name": "SmartGuard",
     "slug": "SmartGuard",
-    "version": "2.0.2",
+    "version": "3.0.1",
     "orientation": "portrait",
     "icon": "./assets/Logo.png",
     "splash": {

@@ -1,15 +1,21 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import View_Video from "./Videos";
-import { Button } from "react-native-paper";
+import * as FileSystem from "expo-file-system";
+import AppContext from "./AppContext";
 
-export default function Video_List() {
+export default function Video_List({ route }) {
+  const myContext = useContext(AppContext);
+  let url = myContext.URL;
+  url = url.concat("video_stored/");
+
+  useEffect(() => {
+    console.log(Video_URI);
+    setsuri(route.params.paramKey);
+    console.log(route.params.paramKey);
+  }, []);
   const [Video_URI, setsuri] = useState([
     { uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4", key: 1 },
-    {
-      uri: "https://media.istockphoto.com/videos/dancing-in-the-sky-video-id1295217100",
-      key: 2,
-    },
   ]);
   return (
     <View>
@@ -17,7 +23,7 @@ export default function Video_List() {
         data={Video_URI}
         horizontal={false}
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item, index }) => <View_Video item={item.uri} />}
+        renderItem={({ item, index }) => <View_Video item={url + item.uri} />}
       />
     </View>
   );

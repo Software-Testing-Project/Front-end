@@ -11,6 +11,9 @@ import Speech from "../Components/voice";
 import ViewImages from "../Components/ViewImages";
 import Camera_Module from "../Components/Camera";
 import Image_Inside from "../Components/camera2";
+import Video_List from "../Components/Video_List";
+import searchVideo from "../Components/search_video";
+import Siren from "../Components/siren";
 const Stack = createStackNavigator();
 
 const MainStackNavigator = () => {
@@ -46,7 +49,8 @@ const MainStackNavigator = () => {
       />
       <Stack.Screen
         name="Siren1"
-        component={Try}
+        // component={Video_List}
+        component={Siren}
         options={{
           title: "Siren",
         }}
@@ -77,6 +81,13 @@ const MainStackNavigator = () => {
         component={Image_Inside}
         options={{
           title: "Open Gallery",
+        }}
+      />
+      <Stack.Screen
+        name="Search Result"
+        component={Video_List}
+        options={{
+          title: "Search Result",
         }}
       />
     </Stack.Navigator>

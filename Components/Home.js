@@ -19,6 +19,7 @@ import {
   Modal,
   StatusBar,
 } from "react-native";
+import { getAuth } from "firebase/auth";
 
 import LiveStreaming from "./LiveStreaming";
 import Selector from "./Selector";
@@ -41,7 +42,17 @@ export default function Home({ navigation }) {
 
     fetchURL();
   });
-
+  const auth = getAuth();
+  const user = auth.currentUser;
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    console.log("Yesss");
+    // ...
+  } else {
+    // No user is signed in.
+    console.log("No");
+  }
   // const [todos, set_todos] = useState([
   //   {
   //     name: "Pizza",
@@ -70,16 +81,6 @@ export default function Home({ navigation }) {
     set_todos((prev_todos) => {
       return prev_todos.filter((todo) => todo.key != key);
     });
-  };
-  const Add_todo = () => {
-    var _key = todos.length + 1;
-    var obj = { name: temp, key: _key };
-    console.log("todo", todos);
-
-    var new_state = [...todos, obj];
-
-    set_todos(new_state);
-    console.log("todo", todos);
   };
   const myContext = useContext(AppContext);
   console.log(myContext);
@@ -154,9 +155,11 @@ export default function Home({ navigation }) {
           }}
         >
           <View style={{ margin: 30 }}>
-            <FontAwesome name="bell" size={90} color="black" />
-            {/* <Image source={p3} style={{ width: 90, height: 90 }} /> */}
-            <Text style={[styles.btns, { marginLeft: 25 }]}>Siren</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Siren1")}>
+              <FontAwesome name="bell" size={90} color="black" />
+              {/* <Image source={p3} style={{ width: 90, height: 90 }} /> */}
+              <Text style={[styles.btns, { marginLeft: 25 }]}>Siren</Text>
+            </TouchableOpacity>
           </View>
           <View style={{ margin: 30 }}>
             <TouchableOpacity

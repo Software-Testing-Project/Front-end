@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { View, StyleSheet, Button } from "react-native";
 import { Video, AVPlaybackStatus } from "expo-av";
 
@@ -15,7 +15,6 @@ export default function View_Video({ item }) {
         }}
         useNativeControls
         resizeMode="contain"
-        isLooping
         onPlaybackStatusUpdate={(status) => setStatus(() => status)}
       />
     </View>

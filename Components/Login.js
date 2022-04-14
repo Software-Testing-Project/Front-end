@@ -49,9 +49,11 @@ export default function Login({ navigation }) {
   const myContext = useContext(AppContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [isready, setready] = useState(false);
 
   const storeName = async (value) => {
+    console.log(value);
     await AsyncStorage.setItem("@user_name", value);
   };
 
@@ -60,6 +62,7 @@ export default function Login({ navigation }) {
     signInWithEmailAndPassword(auth, e, p)
       .then((userCredential) => {
         // Signed in
+        console.log(userCredential);
         const user = userCredential.user;
         console.log(user.displayName);
         storeName(user.displayName);
@@ -103,7 +106,11 @@ export default function Login({ navigation }) {
         />
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Forget Password");
+        }}
+      >
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
 

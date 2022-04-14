@@ -43,6 +43,7 @@ import {
 } from "react-native";
 import {
   getAuth,
+  sendEmailVerification,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
@@ -63,57 +64,42 @@ export default function Signup({ navigation }) {
   const handleSignup = () => {
     setready(true);
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
+      .then(() => {
         updateProfile(auth.currentUser, {
           displayName: displayName,
-        })
-          .then(() => {
-            signInWithEmailAndPassword(auth, email, password)
-              .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                storeName(user.displayName);
+        });
+        Alert.alert(
+          "Account created Successfully ",
+          "We would send a confirmation email if this is your account",
+
+          [
+            {
+              text: "OK",
+
+              onPress: () => {
+                sendEmailVerification(auth.currentUser);
+                navigation.navigate("Login");
                 setready(false);
-                myContext.setsignedin(true);
-
-                // ...
-              })
-              .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setready(false);
-                Alert.alert("Login failed", "Email or passwrod is incorrect");
-                console.log(errorMessage);
-              });
-
-            // Profile updated!
-            console.log("Name added");
-
-            // ...
-          })
-          .catch((error) => {
-            // An error occurred
-            setready(false);
-            console.log(error.message);
-            // ...
-          });
-        // ...
+              },
+            },
+          ]
+        );
       })
-      .catch((error) => {
-        setready(false);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        let myArray = errorMessage.split("/");
-        let message = (myArray = myArray[1].split(")"));
-        message = message[0];
+      .catch((err) => {
+        const errorCode = err.code;
+        const errorMessage = err.message;
 
-        Alert.alert("Signup Failed", message, [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]);
-        console.log(message);
-        // ..
+        Alert.alert("Signup failed Try Again", errorMessage);
+
+        setready(false);
       });
+    // Signed in
+
+    setready(false);
+
+    // ...
+
+    // ...
   };
   return (
     <View style={styles.container}>
