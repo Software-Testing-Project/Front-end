@@ -5,7 +5,14 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo-enzyme",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ]
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.5",
@@ -24,13 +31,18 @@
     "expo-dev-client": "~0.6.3",
     "expo-face-detector": "~11.0.3",
     "expo-file-system": "~13.0.3",
+    "expo-image-manipulator": "~10.1.2",
     "expo-image-picker": "~11.0.3",
     "expo-media-library": "~13.0.3",
     "expo-notifications": "~0.13.3",
     "expo-permissions": "~13.0.3",
     "expo-status-bar": "~1.1.0",
     "firebase": "^9.6.4",
+    "jest": "^26.6.3",
+    "jest-expo": "~43.0.1",
+    "jest-expo-enzyme": "^1.3.0",
     "react": "17.0.1",
+    "react-context": "^0.0.3",
     "react-dom": "17.0.1",
     "react-native": "0.64.2",
     "react-native-camera": "^4.2.1",
@@ -46,8 +58,7 @@
     "react-navigation": "^4.4.4",
     "react-navigation-drawer": "^2.7.1",
     "react-redux": "^7.2.6",
-    "redux": "^4.1.2",
-    "expo-image-manipulator": "~10.1.2"
+    "redux": "^4.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

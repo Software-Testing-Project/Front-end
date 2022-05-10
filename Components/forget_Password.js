@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import AppContext from "./AppContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import {
   StyleSheet,
   Text,
@@ -16,6 +16,7 @@ import {
 import AppLoading from "expo-app-loading";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 export default function forget_Password({ navigation }) {
+  console.log(getAuth());
   const auth = getAuth();
   const [temp_email, set_temp_email] = useState("");
   return (

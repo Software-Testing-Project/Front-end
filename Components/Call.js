@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import AppContext from "./AppContext";
+import { useAppContext } from "./AppContext";
 import {
   StyleSheet,
   Text,
@@ -12,15 +12,18 @@ import {
   Alert,
 } from "react-native";
 export default function Call() {
-  const myContext = useContext(AppContext);
+  const myContext = useAppContext();
+  // console.log(myContext);
   url = myContext.URL.concat("call_sim");
-  const [PhoneNumber, setPhoneNumber] = useState("+923439586924");
-  const [result, setresult] = useState("");
-  const Calluser = () => {
+  const [PhoneNumber, setPhoneNumber] = React.useState("+923439586924");
+  // console.log(PhoneNumber);
+  const [result, setresult] = React.useState("");
+  const Calluser = (a) => {
     let data = JSON.stringify({
       PhoneNumber: PhoneNumber,
     });
-    //console.log(data);
+    console.log("Yess");
+
     fetch(url, {
       method: "POST",
       headers: {
@@ -31,6 +34,7 @@ export default function Call() {
     })
       .then((response) => response.json())
       .then((data) => {
+        PhoneNumber = data;
         Alert.alert("Calling... ", PhoneNumber, [
           {
             text: "Ok",
@@ -38,13 +42,14 @@ export default function Call() {
         ]);
       })
       .catch((err) => {
-        console.log("Error is", err);
+        // console.log("Error is", err);
         Alert.alert("Calling failed", PhoneNumber, [
           {
             text: "Ok",
           },
         ]);
       });
+    return "Ok";
   };
 
   return (
@@ -53,6 +58,7 @@ export default function Call() {
 
       <View style={styles.inputView}>
         <TextInput
+          testID="1122"
           style={styles.TextInput}
           placeholder="Phone Number"
           placeholderTextColor="#003f5c"
@@ -60,8 +66,14 @@ export default function Call() {
           onChangeText={(number) => setPhoneNumber(number)}
         />
       </View>
-      <TouchableOpacity style={styles.SignBtn} onPress={Calluser}>
-        <Text style={styles.loginText}>Call</Text>
+      <TouchableOpacity
+        style={styles.SignBtn}
+        onPress={Calluser}
+        data-jest="0090"
+      >
+        <Text style={styles.loginText} data-jest="mockyApp">
+          Call
+        </Text>
       </TouchableOpacity>
     </View>
   );

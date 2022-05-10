@@ -1,31 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Dimensions,
-  FlatList,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  TextInput,
-  Button,
-  Modal,
-} from "react-native";
 
 import AppContext from "./Components/AppContext";
-import Speech from "./Components/voice";
+
 import { NavigationContainer } from "@react-navigation/native";
 import DrawerNavigator from "./Navigation/DrawerNavigator";
-import { MainStackNavigator } from "./Navigation/Navigotr";
-
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from "@react-navigation/drawer";
 import { firebase_app } from "./firebase/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Notifications from "expo-notifications";
