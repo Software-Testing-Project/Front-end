@@ -29,7 +29,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import AppContext from "./AppContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+//import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AsyncStorage } from "react-native";
 import {
   StyleSheet,
   Text,

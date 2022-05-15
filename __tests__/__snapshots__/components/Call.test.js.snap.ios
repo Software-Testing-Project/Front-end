@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Call module Call render correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      Object {
+        "height": 250,
+        "marginBottom": 40,
+        "width": 250,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFC0CB",
+        "borderRadius": 30,
+        "height": 45,
+        "marginBottom": 20,
+        "width": "80%",
+      }
+    }
+  >
+    <TextInput
+      allowFontScaling={true}
+      keyboardType="phone-pad"
+      onChangeText={[Function]}
+      placeholder="Phone Number"
+      placeholderTextColor="#003f5c"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "flex": 1,
+          "height": 50,
+          "marginLeft": 20,
+          "padding": 10,
+          "width": "80%",
+        }
+      }
+      testID="1122"
+      underlineColorAndroid="transparent"
+    />
+  </View>
+  <ForwardRef
+    data-jest="0090"
+    onPress={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#ff9cd1",
+        "borderRadius": 25,
+        "height": 50,
+        "justifyContent": "center",
+        "marginTop": 10,
+        "width": "50%",
+      }
+    }
+  >
+    <Text
+      data-jest="mockyApp"
+    >
+      Call
+    </Text>
+  </ForwardRef>
+</View>
+`;
+
+exports[`Call module render correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      Object {
+        "height": 250,
+        "marginBottom": 40,
+        "width": 250,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFC0CB",
+        "borderRadius": 30,
+        "height": 45,
+        "marginBottom": 20,
+        "width": "80%",
+      }
+    }
+  >
+    <TextInput
+      allowFontScaling={true}
+      keyboardType="phone-pad"
+      onChangeText={[Function]}
+      placeholder="Phone Number"
+      placeholderTextColor="#003f5c"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "flex": 1,
+          "height": 50,
+          "marginLeft": 20,
+          "padding": 10,
+          "width": "80%",
+        }
+      }
+      testID="1122"
+      underlineColorAndroid="transparent"
+    />
+  </View>
+  <ForwardRef
+    data-jest="0090"
+    onPress={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#ff9cd1",
+        "borderRadius": 25,
+        "height": 50,
+        "justifyContent": "center",
+        "marginTop": 10,
+        "width": "50%",
+      }
+    }
+  >
+    <Text
+      data-jest="mockyApp"
+    >
+      Call
+    </Text>
+  </ForwardRef>
+</View>
+`;

@@ -1,8 +1,12 @@
 import React from "react";
-import renderer from "react-test-renderer";
+
 import Intro from "../../Components/Call";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import * as AppContext from "../../Components/AppContext";
+import { configure } from "enzyme";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
+
+configure({ adapter: new Adapter() });
 describe("Call module", () => {
   const setState = jest.fn();
   const useStateSpy = jest.spyOn(React, "useState");
@@ -12,10 +16,10 @@ describe("Call module", () => {
     .spyOn(AppContext, "useAppContext")
     .mockImplementation(() => userSettings);
 
-  // it("render correctly", () => {
-  //   const tree = shallow(<Intro />);
-  //   expect(tree).toMatchSnapshot();
-  // });
+  it("Call render correctly", () => {
+    const tree = shallow(<Intro />);
+    expect(tree).toMatchSnapshot();
+  });
   const myResponse = {
     data: "test",
   };
@@ -40,9 +44,9 @@ describe("Call module", () => {
     let tree = shallow(<Intro />);
     expect(tree.find("url")).toBeDefined();
   });
-  it("Call user", async () => {
+  it("Call user button clicked 1 time", () => {
     let tree = shallow(<Intro />);
-    let temp = tree.find("Calluser");
+    expect(tree.find("TouchableOpacity")).toBe(true);
   });
 
   // it("Call is getting url fine", () => {
