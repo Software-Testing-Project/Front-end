@@ -66,11 +66,7 @@ export default function Call() {
           onChangeText={(number) => setPhoneNumber(number)}
         />
       </View>
-      <TouchableOpacity
-        style={styles.SignBtn}
-        onPress={Calluser}
-        data-jest="0090"
-      >
+      <TouchableOpacity style={styles.SignBtn} onPress={Calluser} testID="0090">
         <Text style={styles.loginText} data-jest="mockyApp">
           Call
         </Text>
