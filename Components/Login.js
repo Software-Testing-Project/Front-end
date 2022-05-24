@@ -90,6 +90,7 @@ export default function Login({ navigation }) {
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
+          testID="1"
           style={styles.TextInput}
           placeholder="Email."
           placeholderTextColor="#003f5c"
@@ -99,6 +100,7 @@ export default function Login({ navigation }) {
 
       <View style={styles.inputView}>
         <TextInput
+          testID="1"
           style={styles.TextInput}
           placeholder="Password."
           placeholderTextColor="#003f5c"
