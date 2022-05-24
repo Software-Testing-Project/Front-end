@@ -27,7 +27,7 @@
 //   );
 // }
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { StatusBar } from "expo-status-bar";
+
 import AppContext from "./AppContext";
 //import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AsyncStorage } from "react-native";
@@ -42,7 +42,7 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
-import AppLoading from "expo-app-loading";
+
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function Login({ navigation }) {
@@ -87,7 +87,7 @@ export default function Login({ navigation }) {
       ) : (
         <View></View>
       )}
-      <StatusBar style="auto" />
+
       <View style={styles.inputView}>
         <TextInput
           testID="1"
@@ -100,7 +100,7 @@ export default function Login({ navigation }) {
 
       <View style={styles.inputView}>
         <TextInput
-          testID="1"
+          testID="2"
           style={styles.TextInput}
           placeholder="Password."
           placeholderTextColor="#003f5c"
