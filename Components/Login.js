@@ -69,6 +69,7 @@ export default function Login({ navigation }) {
         storeName(user.displayName);
         setready(false);
         myContext.setsignedin(true);
+        return true;
         // ...
       })
       .catch((error) => {
@@ -77,6 +78,7 @@ export default function Login({ navigation }) {
         setready(false);
         Alert.alert("Login failed", "Email or passwrod is incorrect");
         console.log(errorMessage);
+        return false;
       });
   };
   return (
@@ -118,6 +120,7 @@ export default function Login({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity
+        testID="3"
         style={styles.loginBtn}
         onPress={() => {
           VerifyUser(email, password);
