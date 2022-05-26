@@ -17,7 +17,9 @@ jest.mock("firebase/auth", () => {
     getAuth: jest.fn(),
     signInWithEmailAndPassword: jest
       .fn()
-      .mockImplementation(() => Promise.resolve()),
+      .mockResolvedValue(true)
+      .mockRejectedValue(false),
+    //.mockImplementation(() => Promise.resolve()),
   };
 });
 describe("Testing Login Module", () => {
@@ -43,11 +45,10 @@ describe("Testing Login Module", () => {
     });
   });
   describe("User Verification", () => {
-    test("user is verified", () => {
+    test("user verfivation function is called", () => {
       const { getByTestId } = render(<Login />);
-      let temp = fireEvent.press(getByTestId("3"));
-
-      expect(temp).toBe(true);
+      fireEvent.press(getByTestId("3"));
+      expect(signInWithEmailAndPassword).toHaveBeenCalled();
     });
   });
 });

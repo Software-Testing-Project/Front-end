@@ -6,16 +6,12 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  Button,
-  Modal,
   Image,
-  Alert,
 } from "react-native";
-import Image_Inside from "./camera2";
-import Camera_Module from "./Camera";
+
 import p5 from "../assets/5.png";
 import p6 from "../assets/6.png";
-import { Ionicons } from "@expo/vector-icons";
+//import { Ionicons } from "@expo/vector-icons";
 export default function Selector({ turnback, url, navigation }) {
   const windowWidth = Dimensions.get("window").width;
 

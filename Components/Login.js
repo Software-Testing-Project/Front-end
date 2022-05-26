@@ -75,9 +75,9 @@ export default function Login({ navigation }) {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        setready(false);
+        //setready(false);
         Alert.alert("Login failed", "Email or passwrod is incorrect");
-        console.log(errorMessage);
+        console.log("Yes", errorMessage);
         return false;
       });
   };

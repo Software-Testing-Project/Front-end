@@ -101,7 +101,7 @@ export default function Home({ navigation }) {
           </TouchableOpacity>
         </View> */}
         <View>
-          <Image source={logo} style={{ width: windowWidth, height: 250 }} />
+          <Image testID="image1" source={logo} style={{ width: windowWidth, height: 250 }} />
         </View>
       </View>
       <View>
