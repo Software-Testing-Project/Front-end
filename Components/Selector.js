@@ -11,7 +11,7 @@ import {
 
 import p5 from "../assets/5.png";
 import p6 from "../assets/6.png";
-//import { Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 export default function Selector({ turnback, url, navigation }) {
   const windowWidth = Dimensions.get("window").width;
 
@@ -25,13 +25,20 @@ export default function Selector({ turnback, url, navigation }) {
         <View style={{ margin: 20 }}>
           <TouchableOpacity onPress={() => navigation.navigate("Camera1")}>
             <Ionicons name="camera-outline" size={90} color="black" />
-            <Text style={styles.btns}>Open camera</Text>
+            <Text testID="camera1" style={styles.btns}>
+              Open camera
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={{ margin: 20, marginLeft: 50 }}>
-          <TouchableOpacity onPress={() => navigation.navigate("Camera2")}>
+          <TouchableOpacity
+            testID="112"
+            onPress={() => navigation.navigate("Camera2")}
+          >
             <Ionicons name="images-outline" size={90} color="black" />
-            <Text style={styles.btns}>Open Gallery</Text>
+            <Text testID="113" style={styles.btns}>
+              Open Gallery
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

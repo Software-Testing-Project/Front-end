@@ -9,11 +9,12 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "react-native",
+    "preset": "jest-expo",
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect"
     ],
     "setupFiles": ["/home/ehsan/Desktop/Software testing/Front-end/jestSetupFile.js"]
+    
     
   },
   "dependencies": {
