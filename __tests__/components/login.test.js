@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/react-native";
+import { render, fireEvent, within } from "@testing-library/react-native";
 import Login from "../../Components/Login";
 import "@testing-library/jest-native/extend-expect";
 import React from "react";
@@ -49,6 +49,11 @@ describe("Testing Login Module", () => {
       const { getByTestId } = render(<Login />);
       fireEvent.press(getByTestId("3"));
       expect(signInWithEmailAndPassword).toHaveBeenCalled();
+    });
+    test("COntains text", () => {
+      const { getByTestId } = render(<Login />);
+      const Login_Btn = within(getByTestId("3"));
+      expect(Login_Btn.getByText("LOGIN")).toBeTruthy();
     });
   });
 });
