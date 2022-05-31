@@ -31,11 +31,22 @@ describe("Testing Login Module", () => {
       const { getByTestId } = render(<Login />);
       fireEvent.press(getByTestId("3"));
       expect(signInWithEmailAndPassword).toHaveBeenCalled();
+      expect(signInWithEmailAndPassword).toBeCalledTimes(1);
     });
-    test("COntains text", () => {
+    test("user verfivation function is called only 1 times", () => {
+      expect(signInWithEmailAndPassword).toBeCalledTimes(1);
+    });
+    test("COntains Login Text", () => {
       const { getByTestId } = render(<Login />);
       const Login_Btn = within(getByTestId("3"));
       expect(Login_Btn.getByText("LOGIN")).toBeTruthy();
+    });
+    test(" Contains only 1 login button", () => {
+      const { queryAllByText, getByTestId } = render(<Login />);
+      expect(queryAllByText("LOGIN")).toHaveLength(1);
+      const Login_BTN = within(getByTestId("3"));
+      expect(Login_BTN.queryAllByText("LOGIN")).toBeTruthy();
+      expect(Login_BTN.queryAllByText("LOGIN")).toHaveLength(1);
     });
   });
 });
