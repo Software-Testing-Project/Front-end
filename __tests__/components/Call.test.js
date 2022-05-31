@@ -1,21 +1,7 @@
 import { render, fireEvent } from "@testing-library/react-native";
 import Call from "../../Components/Call";
 import React from "react";
-import * as AppContext from "../../Components/AppContext";
-const setState = jest.fn();
-const useStateSpy = jest.spyOn(React, "useState");
-useStateSpy.mockImplementation((init) => [init, setState]);
-const userSettings = { URL: "192.168.1201.", tempURL: "192.168.1201." };
-jest.spyOn(AppContext, "useAppContext").mockImplementation(() => userSettings);
-const myResponse = {
-  data: "test",
-};
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () => Promise.resolve({ myResponse }),
-  })
-);
-const fetch = jest.fn();
+
 describe("Testing call module", () => {
   test("Is button present", () => {
     const { getByText } = render(<Call />);
