@@ -1,7 +1,6 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+This project was bootstrapped with [Expo React Native]
 ## Available Scripts
 
 In the project directory, you can run:
@@ -9,10 +8,11 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Expo server will run at [http://localhost:3000](http://localhost:3000) in your browser.
 
 The page will reload when you make changes.\
-You may also see any lint errors in the console.
+You can open this in your browser or can install the application on IOS or Android.
+Works for both Emulator as well as physical devices
 
 ### `npm run test`
 
